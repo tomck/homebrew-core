@@ -1,14 +1,14 @@
 class Miller < Formula
   desc "Like sed, awk, cut, join & sort for name-indexed data such as CSV"
   homepage "https://github.com/johnkerl/miller"
-  url "https://github.com/johnkerl/miller/releases/download/v4.0.0/mlr-4.0.0.tar.gz"
-  sha256 "e2fbeee7ed2ed7f439e329b93590c6a80b4daef64399a2a8ac93e01f154e80be"
+  url "https://github.com/johnkerl/miller/releases/download/v4.2.0/mlr-4.2.0.tar.gz"
+  sha256 "e7495a5de230de2743252124e27edac3d8ff91a2c2dee2166bce31c4b4d1815a"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "5ebc35bfd7bcef3a2729cd32b1652b818cd973b8292e9694d8209bb9c7105e1d" => :el_capitan
-    sha256 "4dc09af9b4c06016a0211b07af88645581226ad51298ee5376cce6207c15b1a8" => :yosemite
-    sha256 "8627cac9ee07f117782ae84775702eb57fb2d5f15442c9592a940367e0ef4453" => :mavericks
+    sha256 "5acfed0c2b9105e515a732341d746913dc65a3b6b2733be98f254eb2485c4ea6" => :el_capitan
+    sha256 "f6bacb78c22ab5e2e21b5a4118856942d91f1f1947aee6867a29f893d37813b5" => :yosemite
+    sha256 "4d59881cf215c20bbae35642d098118d395193f9080dae461882eb841459f90f" => :mavericks
   end
 
   head do

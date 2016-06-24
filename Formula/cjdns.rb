@@ -7,12 +7,20 @@ class Cjdns < Formula
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "23d12cadbd43e5971b74cf47767258d62c5d5a18810dce0f3a81c0065f63bee4" => :el_capitan
-    sha256 "712e4c11ad38882b36e259f0d803b777ba982874988dfe285340e5d93e1b3df2" => :yosemite
-    sha256 "4b1d2fbaba625a93273db3ec431428f4311b09f6a875ef5b57e4954798000ce7" => :mavericks
+    revision 1
+    sha256 "e72d0f46337960c2adc6c1e96d08ce3a199012c6aef4a85840c2fadec153c00a" => :el_capitan
+    sha256 "38c21cee07f6cb1448ce0e5caea197304f8c6a92600213c3824dcd5074b4fe82" => :yosemite
+    sha256 "9ac63af21573af4a12ec07d1bbbfc253c5fead6640e596bdc7e956934cd5d187" => :mavericks
   end
 
   depends_on "node" => :build
+
+  # Fixes a node 6 compatibility issue
+  # https://github.com/cjdelisle/cjdns/commit/9e1da7adc96b8c05cb69a6e0f5f12818502b591c
+  patch do
+    url "https://github.com/cjdelisle/cjdns/commit/9e1da7adc96b8c05cb69a6e0f5f12818502b591c.patch"
+    sha256 "83a2bc4dfd864785a60d7c10532e0b6eeab9b0346a24f61fad6f36d7891e677a"
+  end
 
   def install
     system "./do"

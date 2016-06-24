@@ -1,14 +1,14 @@
 class Platformio < Formula
   desc "Ecosystem for IoT development (Arduino and ARM mbed compatible)"
   homepage "http://platformio.org"
-  url "https://pypi.python.org/packages/4e/c6/fa03609bf12703e96dd2c8adf1c3c280d280dafc59e8c5a0d13a1fa18118/platformio-2.9.1.tar.gz"
-  sha256 "3d7d0e0602b1855e36bfb4079fc0a185ba35c13769a55aecf41cb9e65a96d6cc"
+  url "https://pypi.python.org/packages/b7/a3/1d3a9d7bae91df1b607e0f31549ec3e0006f29484cc6a1431b3fe3c5b02e/platformio-2.10.3.tar.gz"
+  sha256 "f3a646871f9baed05f336a32576edaab90abf0737d8adb54f2acb7bcad42a65f"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "3688cbd0a83fadaaf51b5f304020acb1485839571305fe0c01ad3de2f65890e0" => :el_capitan
-    sha256 "9b2416040ec6508b695c2bb757a1d8d67bf3daface13f626dbd5165501a1a747" => :yosemite
-    sha256 "cf0e416e64dceb12b61bb97328d8865cfd3b4ab90a49cdc862013da895b266ef" => :mavericks
+    sha256 "ee8604c1ce4f66bdab31e09846d93c8e3c5f4833c395d90f2a2224d124d3fa88" => :el_capitan
+    sha256 "e65bbccafb3d78e26b6d4a23878b1748c0904809021dfebe6e57fc5ba5b1daf0" => :yosemite
+    sha256 "bfc34e639fefd96a5a3dd8263e51e3d64fd7d6ccb481b4d1d1e8c32bb142c9e8" => :mavericks
   end
 
   depends_on :python if MacOS.version <= :snow_leopard
@@ -24,8 +24,8 @@ class Platformio < Formula
   end
 
   resource "colorama" do
-    url "https://pypi.python.org/packages/source/c/colorama/colorama-0.3.6.tar.gz"
-    sha256 "ec9efcccb086a1d727876384f94ee6358d2f3f096688c1ba18b0f318f2b453b5"
+    url "https://pypi.python.org/packages/f0/d0/21c6449df0ca9da74859edc40208b3a57df9aca7323118c913e58d442030/colorama-0.3.7.tar.gz"
+    sha256 "e043c8d32527607223652021ff648fbb394d5e19cba9f1a698670b338c9d782b"
   end
 
   resource "lockfile" do
@@ -34,13 +34,13 @@ class Platformio < Formula
   end
 
   resource "pyserial" do
-    url "https://pypi.python.org/packages/source/p/pyserial/pyserial-3.0.1.tar.gz"
-    sha256 "969cb6405d1d87f8960cf9c10f597ae58f85da2fb9769dba96f4aeeaade54656"
+    url "https://pypi.python.org/packages/3c/d8/a9fa247ca60b02b3bebbd61766b4f321393b57b13c53b18f6f62cf172c08/pyserial-3.1.1.tar.gz"
+    sha256 "d657051249ce3cbd0446bcfb2be07a435e1029da4d63f53ed9b4cdde7373364c"
   end
 
   resource "requests" do
-    url "https://pypi.python.org/packages/source/r/requests/requests-2.9.1.tar.gz"
-    sha256 "c577815dd00f1394203fc44eb979724b098f88264a9ef898ee45b8e5e9cf587f"
+    url "https://pypi.python.org/packages/49/6f/183063f01aae1e025cf0130772b55848750a2f3a89bfa11b385b35d7329d/requests-2.10.0.tar.gz"
+    sha256 "63f1815788157130cee16a933b2ee184038e975f0017306d723ac326b5525b54"
   end
 
   def install

@@ -1,16 +1,15 @@
 class Git < Formula
   desc "Distributed revision control system"
   homepage "https://git-scm.com"
-  url "https://www.kernel.org/pub/software/scm/git/git-2.8.3.tar.xz"
-  sha256 "7d8e6c274a88b4a73b3c98c70d3438ec12871300ce8bb4ca179ea19fcf74aa91"
+  url "https://www.kernel.org/pub/software/scm/git/git-2.9.0.tar.xz"
+  sha256 "f41fa97949948fbf49af94a43d779e072a5452c6b5039d86ffa41ebab747b409"
 
   head "https://github.com/git/git.git", :shallow => false
 
   bottle do
-    revision 1
-    sha256 "6ab3a060960e45f91502ab8eaf92660c680998a647806a4d4447cdcc1f1d2afd" => :el_capitan
-    sha256 "2573c851ad9f79982c10f39721c08d40254fab2cb9226ae310028531289bfe07" => :yosemite
-    sha256 "910a29e707649a76cdb25b2a2089bcc5882199b6d7c0ed49fcba3af29c04f8a4" => :mavericks
+    sha256 "6b230fa505e98f2947134271fee52d5fcd16eaff49d9dc0fd9ef933f568b92db" => :el_capitan
+    sha256 "076146d0cefd7643c02446a279da627cf290702472e7cd9d3756d6a38cf3c13c" => :yosemite
+    sha256 "396bb11465e7d13141bfa9c67f41a81628259060761df820193763b9e973fc61" => :mavericks
   end
 
   option "with-blk-sha1", "Compile with the block-optimized SHA1 implementation"
@@ -33,13 +32,13 @@ class Git < Formula
   end
 
   resource "html" do
-    url "https://www.kernel.org/pub/software/scm/git/git-htmldocs-2.8.3.tar.xz"
-    sha256 "df9aa1f374ca49dd65f47a8bb1498c11567d963e30cf00e097aa89c495d3ccde"
+    url "https://www.kernel.org/pub/software/scm/git/git-htmldocs-2.9.0.tar.xz"
+    sha256 "664dc1aa20966a91cf6b90d282bb5f93b4e4c831a32a0791f43218389ce3b955"
   end
 
   resource "man" do
-    url "https://www.kernel.org/pub/software/scm/git/git-manpages-2.8.3.tar.xz"
-    sha256 "9d25e10c2bc327fdc59820bb00075799487095059d652fb32fea1cdb3a898bc6"
+    url "https://www.kernel.org/pub/software/scm/git/git-manpages-2.9.0.tar.xz"
+    sha256 "dc85c1afa923fd709d651a49d0a720d50a3c248cb16c6c09517cceae88fe8445"
   end
 
   def install
@@ -150,9 +149,9 @@ class Git < Formula
 
     # Set the OS X keychain credential helper by default
     # (as Apple's CLT's git also does this).
-    (buildpath/"gitconfig").write <<-EOS
+    (buildpath/"gitconfig").write <<-EOS.undent
       [credential]
-        helper = osxkeychain
+      \thelper = osxkeychain
     EOS
     etc.install "gitconfig"
   end

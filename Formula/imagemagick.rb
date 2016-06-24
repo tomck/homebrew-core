@@ -4,16 +4,16 @@ class Imagemagick < Formula
   # Please always keep the Homebrew mirror as the primary URL as the
   # ImageMagick site removes tarballs regularly which means we get issues
   # unnecessarily and older versions of the formula are broken.
-  url "https://dl.bintray.com/homebrew/mirror/imagemagick-6.9.4-6.tar.xz"
-  mirror "https://www.imagemagick.org/download/ImageMagick-6.9.4-6.tar.xz"
-  sha256 "c028642af5f4cbae864b4afd6ea96878191be64103ca9c7cc67612ec3cbb9dec"
+  url "https://dl.bintray.com/homebrew/mirror/imagemagick-6.9.4-10.tar.xz"
+  mirror "https://www.imagemagick.org/download/ImageMagick-6.9.4-10.tar.xz"
+  sha256 "a2c981ea80de0ed95135591d0e504a2427187594a5cb2342474f50d97e626a2d"
 
   head "http://git.imagemagick.org/repos/ImageMagick.git"
 
   bottle do
-    sha256 "ee5b53fe763ad061471bd9c04fad31b65a5cc28adc2775c5b56f0bd4fd03b2a1" => :el_capitan
-    sha256 "09af33af22cfb742a67d930b401a05829589496048cadba7b68194825f9bbe25" => :yosemite
-    sha256 "2de5b63c45d120ba63fbf680b8935cdf38552d14799ba1b8acd155fd7fbfa06d" => :mavericks
+    sha256 "e2431e4ae7294d68c9f7b147fcf65d323d0f33adf2227d14420742f2f5c0cd5c" => :el_capitan
+    sha256 "49e4d63c95de67f47e4bfca01d721314847146dfd173bbdd60cad9812fec5c29" => :yosemite
+    sha256 "41af669fb6e985e51c706a60df0746353e25cad48eb5dcccba7138481469273a" => :mavericks
   end
 
   deprecated_option "enable-hdri" => "with-hdri"
@@ -22,7 +22,7 @@ class Imagemagick < Formula
   option "with-hdri", "Compile with HDRI support"
   option "with-jp2", "Compile with Jpeg2000 support"
   option "with-openmp", "Compile with OpenMP support"
-  option "with-perl", "enable build/install of PerlMagick"
+  option "with-perl", "Compile with PerlMagick"
   option "with-quantum-depth-8", "Compile with a quantum depth of 8 bit"
   option "with-quantum-depth-16", "Compile with a quantum depth of 16 bit"
   option "with-quantum-depth-32", "Compile with a quantum depth of 32 bit"
@@ -51,6 +51,7 @@ class Imagemagick < Formula
   depends_on "homebrew/versions/openjpeg21" if build.with? "jp2"
   depends_on "fftw" => :optional
   depends_on "pango" => :optional
+  depends_on :perl => ["5.5", :optional]
 
   needs :openmp if build.with? "openmp"
 

@@ -4,13 +4,14 @@ class Perl < Formula
   url "http://www.cpan.org/src/5.0/perl-5.24.0.tar.xz"
   mirror "https://mirrors.ocf.berkeley.edu/debian/pool/main/p/perl/perl_5.24.0.orig.tar.xz"
   sha256 "a9a37c0860380ecd7b23aa06d61c20fc5bc6d95198029f3684c44a9d7e2952f2"
+  revision 1
 
   head "https://perl5.git.perl.org/perl.git", :branch => "blead"
 
   bottle do
-    sha256 "90dfafc8f1f30af8d03ad41dcea82e25296a2d41496cfb93ffa7fc862cbc616e" => :el_capitan
-    sha256 "2981babc6c83b11e534b25777f03273c9ff56fd58f576291abf5547b3e07767c" => :yosemite
-    sha256 "707b9d6d071aca1cccde5234271aedc16d126330614afd06551c17badadf349c" => :mavericks
+    sha256 "9b7e0cea4fdb51a17bed1d7733d300a33e29186c8f5e7afc601e7cbbfda20f8e" => :el_capitan
+    sha256 "75876c7d492a675d3a1fd257afd10d2c30fdb339ba53de925ab97fcdc97b9131" => :yosemite
+    sha256 "a2e15a577db6428bfaad8c441973d85cfdea65bf6ed54d8c4c36b8d767d1fa62" => :mavericks
   end
 
   option "with-dtrace", "Build with DTrace probes"
@@ -18,10 +19,25 @@ class Perl < Formula
 
   deprecated_option "with-tests" => "with-test"
 
+  # Fixes Time::HiRes module bug related to the presence of clock_gettime
+  # https://rt.perl.org/Public/Bug/Display.html?id=128427
+  # Merged upstream, should be in the next release.
+  if MacOS.version >= :sierra
+    patch do
+      url "https://raw.githubusercontent.com/Homebrew/formula-patches/4455ab37423c123b2e4bd334ad48812ecf2f9109/perl/clock_gettime.patch"
+      sha256 "c94716d26bd82854cc3e6c86a2a264028692a845dda994354159184e7905891d"
+    end
+  end
+
   def install
     args = %W[
       -des
       -Dprefix=#{prefix}
+      -Dprivlib=#{lib}/perl5/#{version}
+      -Dsitelib=#{lib}/perl5/site_perl/#{version}
+      -Dotherlibdirs=#{HOMEBREW_PREFIX}/lib/perl5/site_perl/#{version}
+      -Dperlpath=#{opt_bin}/perl
+      -Dstartperl=#!#{opt_bin}/perl
       -Dman1dir=#{man1}
       -Dman3dir=#{man3}
       -Duseshrplib
@@ -47,8 +63,12 @@ class Perl < Formula
   end
 
   def caveats; <<-EOS.undent
-    By default Perl installs modules in your HOME dir. If this is an issue run:
-      `#{opt_bin}/cpan o conf init`
+    By default non-brewed cpan modules are installed to the Cellar. If you wish
+    for your modules to persist across updates we recommend using `local::lib`.
+
+    You can set that up like this:
+      PERL_MM_OPT="INSTALL_BASE=$HOME/perl5" cpan local::lib
+      echo 'eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)"' >> #{shell_profile}
     EOS
   end
 

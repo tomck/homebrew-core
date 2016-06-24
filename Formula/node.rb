@@ -1,17 +1,18 @@
 class Node < Formula
   desc "Platform built on the V8 JavaScript runtime to build network applications"
   homepage "https://nodejs.org/"
-  url "https://nodejs.org/dist/v6.2.0/node-v6.2.0.tar.xz"
-  sha256 "8633fe606fd1f2235d26901c6bc4c11b5b88fd3c772af18a902e3efd1254e492"
+  url "https://nodejs.org/dist/v6.2.2/node-v6.2.2.tar.xz"
+  sha256 "2dfeeddba750b52a528b38a1c31e35c1fb40b19cf28fbf430c3c8c7a6517005a"
   head "https://github.com/nodejs/node.git"
 
   bottle do
-    sha256 "4d6c141474d0b6d4d0f5ac7631f42e8517425d42ca682fdd871030a3fbdc4048" => :el_capitan
-    sha256 "5406bb51ef2b5c31c4a8da137940a7a79ede7acd7a5641b361d37bd907e0e670" => :yosemite
-    sha256 "b583e1f6fa1a8a2966a2b2cc09effc7bf985470375c64dafe36002e4be6bb5d2" => :mavericks
+    sha256 "fc0d429b9e232812760f354d0f4002d781364d6318c6bae39bda53c1123f987f" => :el_capitan
+    sha256 "1aedf2edf5f1af4f0782fdf425a4e3dc430c09bed0b42b374a4deb54c0344f5f" => :yosemite
+    sha256 "c8b2b2f4822969109623ff73f95709b0375b5d3bbe63c686d525bd661c919433" => :mavericks
   end
 
   option "with-debug", "Build with debugger hooks"
+  option "with-openssl", "Build against Homebrew's OpenSSL instead of the bundled OpenSSL"
   option "without-npm", "npm will not be installed"
   option "without-completion", "npm bash completion will not be installed"
   option "with-full-icu", "Build with full-icu (all locales) instead of small-icu (English only)"
@@ -36,8 +37,8 @@ class Node < Formula
   # We will accept *important* npm patch releases when necessary.
   # https://github.com/Homebrew/homebrew/pull/46098#issuecomment-157802319
   resource "npm" do
-    url "https://registry.npmjs.org/npm/-/npm-3.8.9.tgz"
-    sha256 "97c831727e9cc0543ca437ab688a4eeba862f2238f4d57ff13ee1888402a9c7b"
+    url "https://registry.npmjs.org/npm/-/npm-3.9.5.tgz"
+    sha256 "d09a3adbb82b81dcd6123b771b9f05845c82b63a27dbe15a5f517a31d779a1b6"
   end
 
   resource "icu4c" do
@@ -48,6 +49,8 @@ class Node < Formula
   end
 
   def install
+    # Never install the bundled "npm", always prefer our
+    # installation from tarball for better packaging control.
     args = %W[--prefix=#{prefix} --without-npm]
     args << "--debug" if build.with? "debug"
     args << "--shared-openssl" if build.with? "openssl"

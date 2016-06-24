@@ -8,7 +8,11 @@ class Macvim < Formula
 
   head "https://github.com/macvim-dev/macvim.git"
 
-  bottle :disable, "To use the user's Python."
+  bottle do
+    sha256 "10bf27b12a73fac2f221984ea48bcaa0891b8d2ce97b9e6919631dc691c2bc9a" => :el_capitan
+    sha256 "1b5aea35ca34d35b87aceb359949cfe362b545efd81a21c7f87e4b358003e581" => :yosemite
+    sha256 "650d35979be9d1a364063dba75f8ae8994ec73f66f50656f3561292bfcfa393a" => :mavericks
+  end
 
   option "with-override-system-vim", "Override system vim"
 
@@ -18,6 +22,11 @@ class Macvim < Formula
   depends_on "cscope" => :recommended
   depends_on "lua" => :optional
   depends_on "luajit" => :optional
+
+  if MacOS.version >= :mavericks
+    option "with-custom-python", "Build with a custom Python 2 instead of the Homebrew version."
+  end
+
   depends_on :python => :recommended
   depends_on :python3 => :optional
 

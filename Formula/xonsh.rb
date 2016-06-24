@@ -1,15 +1,15 @@
 class Xonsh < Formula
   desc "Python-ish, BASHwards-compatible shell language and command prompt"
   homepage "http://xon.sh"
-  url "https://github.com/scopatz/xonsh/archive/0.3.1.tar.gz"
-  sha256 "9e3d12de66df9d40b845b43ee9f14cfe90eae5f42ffc8e2f54da245e36232e30"
+  url "https://github.com/xonsh/xonsh/archive/0.3.4.tar.gz"
+  sha256 "8c1f1612944baba310c93de84c71e8f7e7bd71b1115ef783d9800100fb29705e"
   head "https://github.com/scopatz/xonsh.git"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "52ce3bfeabc89a1aa023c0e437f698fa4683fb3bfc23d8bec405c167073a9547" => :el_capitan
-    sha256 "de0b07c1917580d703c3a68a683e3280fa3fb76e97cff372efce457ab499c3d1" => :yosemite
-    sha256 "88a7e0471e040fc25be666741f75e695be797f8fbacbdd049c4c9cf508c72742" => :mavericks
+    sha256 "491d8538d19c217064175e3a0d5d711b27bf2505eec0f2b6027783fd49dcb22f" => :el_capitan
+    sha256 "12b61fe805f3992ceb8a1f912ede5b4f96cdda2015abae756cce661770ed0d68" => :yosemite
+    sha256 "eafa24390595c564fc8af8a19b41523f86f601743a295372f93efb64b07acb5a" => :mavericks
   end
 
   depends_on :python3

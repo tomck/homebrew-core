@@ -1,30 +1,34 @@
 class Gnumeric < Formula
   desc "GNOME Spreadsheet Application"
   homepage "https://projects.gnome.org/gnumeric/"
-  url "https://download.gnome.org/sources/gnumeric/1.12/gnumeric-1.12.27.tar.xz"
-  sha256 "383a5b6eca17f0a5a0b552edcc10320fa719d10c69c7b6fb29d5a11808f1d1c9"
+  url "https://download.gnome.org/sources/gnumeric/1.12/gnumeric-1.12.30.tar.xz"
+  sha256 "b7c2484694fc7f53ff238fd9d8de9c724dc3c8550e77cf98d5db47351e9d868f"
+  revision 1
 
   bottle do
-    sha256 "ef111a401feca256bbd20ac542d09024432abf7f5717f55f1251a4de071e3820" => :el_capitan
-    sha256 "34217904e0d7133303b927594c962206e7a00837391fc8510b0d48462d65a2a3" => :yosemite
-    sha256 "754c6c3eb528a4c6b0b3266c86bc3511139aae3e560da049422b3a888cd5e465" => :mavericks
+    sha256 "d81d1a61958af1ecb53780402f7119dbafcb79e55971f37e2b11face6596029f" => :el_capitan
+    sha256 "9d2af6b8ab785aec809eae2c3840e8e8fd1f65c27875da5d3d8825a1c1c9b171" => :yosemite
+    sha256 "740c6d87205c8b81268668a8eda2996d46d9586637241208808cd624fd57ebee" => :mavericks
   end
 
   option "with-python-scripting", "Enable Python scripting."
+
+  deprecated_option "python-scripting" => "with-python-scripting"
 
   depends_on "pkg-config" => :build
   depends_on "intltool" => :build
   depends_on "gettext"
   depends_on "goffice"
-  depends_on "pygobject" if build.include? "python-scripting"
   depends_on "rarian"
   depends_on "gnome-icon-theme"
-
-  deprecated_option "python-scripting" => "with-python-scripting"
+  depends_on "pygobject" if build.with? "python-scripting"
 
   def install
     # ensures that the files remain within the keg
-    inreplace "component/Makefile.in", "GOFFICE_PLUGINS_DIR = @GOFFICE_PLUGINS_DIR@", "GOFFICE_PLUGINS_DIR = @libdir@/goffice/@GOFFICE_API_VER@/plugins/gnumeric"
+    inreplace "component/Makefile.in",
+              "GOFFICE_PLUGINS_DIR = @GOFFICE_PLUGINS_DIR@",
+              "GOFFICE_PLUGINS_DIR = @libdir@/goffice/@GOFFICE_API_VER@/plugins/gnumeric"
+
     system "./configure", "--disable-dependency-tracking",
                           "--prefix=#{prefix}",
                           "--disable-schemas-compile"
@@ -36,6 +40,6 @@ class Gnumeric < Formula
   end
 
   test do
-    system "#{bin}/gnumeric", "--version"
+    system bin/"gnumeric", "--version"
   end
 end

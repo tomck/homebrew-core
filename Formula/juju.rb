@@ -1,6 +1,6 @@
 class Juju < Formula
   desc "DevOps management tool"
-  homepage "https://juju.ubuntu.com"
+  homepage "https://jujucharms.com/"
   url "https://launchpad.net/juju-core/1.25/1.25.5/+download/juju-core_1.25.5.tar.gz"
   sha256 "7667b5695f1117ca48f1b40c24daa60d0b747c8c1c02ff4b96f2f8954688eb90"
 
@@ -11,6 +11,12 @@ class Juju < Formula
     sha256 "4961bebf88d7c5167e6df8da19d652fea3c3b87a7936d37d130bfcb80962e717" => :mavericks
   end
 
+  devel do
+    url "https://launchpad.net/juju-core/trunk/2.0-beta9/+download/juju-core_2.0-beta9.tar.gz"
+    sha256 "0f201909de0c77be21097f7749a32c131606e86a4b5940484d2fe668c108c22b"
+    version "2.0-beta9"
+  end
+
   depends_on "go" => :build
 
   def install
@@ -18,7 +24,11 @@ class Juju < Formula
     system "go", "build", "github.com/juju/juju/cmd/juju"
     system "go", "build", "github.com/juju/juju/cmd/plugins/juju-metadata"
     bin.install "juju", "juju-metadata"
-    bash_completion.install "src/github.com/juju/juju/etc/bash_completion.d/juju-core"
+    if build.stable?
+      bash_completion.install "src/github.com/juju/juju/etc/bash_completion.d/juju-core"
+    else
+      bash_completion.install "src/github.com/juju/juju/etc/bash_completion.d/juju2"
+    end
   end
 
   test do

@@ -22,34 +22,18 @@ class Cryptol < Formula
   end
 
   bottle do
-    sha256 "baea71ec45613f8c74f76432cd22a1a45166534e50166d5f6618eea3f14fd61c" => :el_capitan
-    sha256 "cceb554a99d0cbca4d9c1253c7afb3ea31b8f6bf0756324af54ce3bc0fa7e582" => :yosemite
-    sha256 "28ab78ff34479ee6b8f7e8efc7ae948d5fdc7c67efe0a4e8b783e3766351347d" => :mavericks
+    revision 1
+    sha256 "e120fc36eb8037afeb3f36e03b2af6b42a8edb396a0ae526265f4a54333bf625" => :el_capitan
+    sha256 "53477d30e0dfaa39787764c90f6353ca08ff4bec92eb3f8ccfbbae8fb6d107d5" => :yosemite
+    sha256 "5f7d3090604c66df255d93ddf02b2325ade12cbad907428cd01eba2e1fb47cbf" => :mavericks
   end
 
   depends_on "ghc" => :build
   depends_on "cabal-install" => :build
   depends_on "z3"
 
-  # Uses the upstream PR from 17 May 2016: "Updated SBV to work with GHC 8.0"
-  # First failure without the patch while building sbv-5.11 looks like this:
-  #   GHC/SrcLoc/Compat.hs:9:1: error:
-  #     Failed to load interface for GHC.SrcLoc
-  resource "sbv-pr-219" do
-    url "https://github.com/LeventErkok/sbv/pull/219.diff"
-    sha256 "c08e4b60de8a88811456feace5aecac19758a34c75715abc0fa17e60bc1f4e18"
-  end
-
   def install
-    buildpath.install resource("sbv-pr-219")
-
     cabal_sandbox do
-      system "cabal", "get", "sbv"
-      cd "sbv-5.11" do
-        system "/usr/bin/patch", "-p1", "-i", buildpath/"219.diff"
-      end
-      cabal_sandbox_add_source "sbv-5.11"
-
       system "make", "PREFIX=#{prefix}", "install"
     end
   end
