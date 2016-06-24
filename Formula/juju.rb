@@ -13,7 +13,7 @@ class Juju < Formula
 
   devel do
     version "2.0-beta10"
-    url "https://launchpad.net/juju-core/trunk/#{version}/+download/juju-core_#{version}.tar.gz"
+    url "https://launchpad.net/juju-core/trunk/2.0-beta10/+download/juju-core_2.0-beta10.tar.gz"
     sha256 "ca1ed827c27b345884aff7e316d54b4929a7e38d6442ffd72d05dd797e8870c8"
   end
 
